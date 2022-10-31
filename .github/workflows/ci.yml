@@ -5,21 +5,20 @@ on:
 
 jobs:
   build_test_job:
-    name: 'Build and test job'
+    name: "Build and test job"
     runs-on: ${{ matrix.os }}
     strategy:
-        matrix:
-          os: [windows-latest, ubuntu-latest, macos-latest]
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
     steps:
+      - name: "Checking out repo code"
+        uses: actions/checkout@v2.5.0
 
-    - name: 'Checking out repo code'
-      uses: actions/checkout@v2
+      - name: "Validate build"
+        run: |
+          npm install
+          npm run build
 
-    - name: 'Validate build'
-      run: |
-        npm install
-        npm run build
-
-    - name: 'Run L0 tests'
-      run: |
-        npm run test
+      - name: "Run L0 tests"
+        run: |
+          npm run test
